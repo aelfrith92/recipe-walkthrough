@@ -1,43 +1,25 @@
+{% extends "base.html" %}
+
 {% load i18n %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block head_title %}{% endblock %}</title>
-    {% block extra_head %}
-    {% endblock %}
-  </head>
-  <body>
-    {% block body %}
 
-    {% if messages %}
-    <div>
-      <strong>{% trans "Messages:" %}</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+  <h1>{% trans "Sign In" %}</h1>
+
+  <p>{% blocktrans %}If you have not created an account yet, then please
+  <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+
+
+  <form class="form p-2" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
     {% endif %}
-
-    <div>
-      <strong>{% trans "Menu:" %}</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a></li>
-        <li><a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
-        <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% block content %}
-    {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
-  </body>
-</html>
+    <button class="btn btn-primary w-25 mb-2" type="submit">{% trans "Sign In" %}</button>
+    <a class="button secondaryAction d-block" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  </form>
+</div>
+{% endblock %}
