@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     
     # Apps
     'home',
+    'recipes',
     
     # All Auth
     'allauth',
