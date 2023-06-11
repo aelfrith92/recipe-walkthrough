@@ -1,10 +1,15 @@
-from typing import Optional
+from typing import Any, Optional
+from django.db.models.query import QuerySet
 from django.views.generic import (CreateView, 
                                   ListView, 
                                   DetailView, 
                                   DeleteView,
                                   UpdateView
                                   )
+
+# Q is a SQL wrapper that allows us to
+# complex database operations in a user-friendly way
+from django.db.models import Q
 
 from django.contrib.auth.mixins import (UserPassesTestMixin, 
                                         LoginRequiredMixin
@@ -25,6 +30,20 @@ class Recipes(ListView):
     # These will be available in the context, through the name
     # given below to the context_object_name, recipes.
     context_object_name = "recipes"
+    print('prima della funzione')
+    
+    def get_queryset(self, **kwargs):
+        query = self.request.GET.get('q')
+        if query:
+            recipes = self.model.objects.filter(
+                Q(title__icontains=query) |
+                Q(description__icontains=query) |
+                Q(instructions__icontains=query) |
+                Q(cuisine_types__icontains=query)
+            )
+        else:
+            recipes = self.model.objects.all()
+        return recipes
 
 
 class RecipeDetail(DetailView):
