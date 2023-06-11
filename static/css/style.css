@@ -32,6 +32,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--title);
 }
 
+/* a, a:-webkit-any-link {
+    text-decoration: none;
+} */
+
 main {
     flex: 1 0 auto;
     background-color: var(--white);
@@ -75,4 +79,20 @@ footer {
     margin: 3% auto;
     box-shadow: var(--small-box-shadow);
     border-radius: 5px;
+}
+
+/* Recipes */
+
+.card {
+    height: 90%;
+    margin-top: 1rem;
+}
+
+.recipes {
+    text-decoration: none !important;
+    color: var(--black);
+}
+
+.recipes:hover {
+    cursor: pointer;
 }

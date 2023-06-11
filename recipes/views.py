@@ -9,7 +9,15 @@ from .forms import RecipeForm
 
 
 class Recipes(ListView):
-    
+    """ View all recipes """
+    template_name = 'recipes/recipes.html'
+    model = Recipe
+    # Throwing from the back-end to the front-end
+    # The ListView automatically generates the list of
+    # all recipes, as a result of the model declared above
+    # These will be available in the context, through the name
+    # given below to the context_object_name, recipes.
+    context_object_name = 'recipes'
 
 class AddRecipe(LoginRequiredMixin, CreateView):
     """ Create a new recipe """
