@@ -1,1 +1,47 @@
 {% extends 'base.html' %}
+
+{% block title %}Home{% endblock %} 
+
+
+{% block content %} 
+
+<div class="container flex-column pt-3">
+    <section class="text-center">
+        <h1 class="main-title mx-auto">Discover the Ultimate Recipe and Meal Planning Destination</h1>
+        <div class="row justify-content-start">
+            <div class="col-10">  
+                <p class="p-4 mt-4 text-opacity-75 w-75 text-start m-auto shadow-lg">
+                    Welcome to our one-stop recipe and meal planning hub! We believe that meal time should be a stress-free 
+                    and enjoyable experience for everyone. That's why we've created a platform that not only houses a 
+                    collection of delicious and diverse recipes, but also provides a convenient meal planning tool. With 
+                    our system, you can plan your meals for the week with just a few clicks. 
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-10">
+                <p class="p-4 mt-4 text-opacity-75 w-75 text-end m-auto shadow-lg">
+                    And for those nights when you're feeling spontaneous, try out our meal generator that lets you select 
+                    your preferred cuisine, calorie count, and meal type to whip up something new and exciting. Join us 
+                    today and take the guesswork out of meal planning!
+                </p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="recipe-cont justify-content-center my-5">
+            <div class="row justify-content-center">
+                {% for recipe in recipes %}
+                <div class="d-flex col-md-4 col-12 justify-content-center">
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="img-container rounded shadow">
+                        <img src="{{recipe.image.url}}" alt="{{recipe.image_alt}}" class="index-previews overflow-hidden">
+                        <div class="centered"><h2>{{recipe.title}}</h2></div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
